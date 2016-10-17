@@ -1,0 +1,25 @@
+<sstream>
+stringstream
+用流转换int到string
+输出有空格用getline
+例子：
+    string getTargetHeartRate()
+    {
+        stringstream stream;
+        string str;
+        stream << "From " << 0.50 * getMaxiumunHeartRate() << " to " << 0.85 * getMaxiumunHeartRate();
+
+        getline(stream, str);
+        return str;
+    }
+互换技巧
+if( y > x )
+{
+	x = y - x;
+	y = y - x;
+	x = y + x;
+}
+
+bool 函数返回数据类型不是单纯的1 和 0
+直接丢进去数组（如 a[ bool() ]
+会有灾难性后果
