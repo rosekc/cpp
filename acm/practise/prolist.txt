@@ -1,0 +1,16 @@
+henu15暑假大礼包 http://acm.hust.edu.cn/vjudge/contest/view.action?cid=119651
+字符串处理 STL 数学题
+HENUACM暑假第-0.5周练习 http://acm.hust.edu.cn/vjudge/contest/view.action?cid=120440
+kmp  字符串处理 数学题 *Manacher回文算法
+HENUACM暑假第一周练习Day1 http://acm.hust.edu.cn/vjudge/contest/view.action?cid=120704
+排序 结构体
+HENUACM暑假第一周练习Day2,3 http://acm.hust.edu.cn/vjudge/contest/view.action?cid=120800
+并查集 STL *二分图判断（颜色法 bfs）
+HENUACM暑假第一周Day4,5 http://acm.hust.edu.cn/vjudge/contest/view.action?cid=121012
+贪心算法
+HENUACM暑假第2周练习（一）http://acm.hust.edu.cn/vjudge/contest/view.action?cid=121512
+数论 欧几里德 打表 素数 模的运算 中国剩余定理 快速幂 欧拉定理&函数
+HENUACM暑假第2周练习（二）http://acm.hust.edu.cn/vjudge/contest/view.action?cid=121711
+几何专题 凸包问题
+HENUACM暑假第2周练习（三）http://acm.hust.edu.cn/vjudge/contest/view.action?cid=122035
+

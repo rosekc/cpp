@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1458742238 source:d:\程序\第五章\5-15\main.cpp
+	<iostream>
+	"GradeBook.h"
+
+1458743750 d:\程序\第五章\5-15\gradebook.h
+
+1458743672 source:d:\程序\第五章\5-15\gradebook.cpp
+	<iostream>
+	"GradeBook.h"
+
+1458742238 source:c:\users\user\desktop\新建文件夹\c++\chapter5\homework\5-15\main.cpp
+	<iostream>
+	"GradeBook.h"
+
+1458743750 c:\users\user\desktop\新建文件夹\c++\chapter5\homework\5-15\gradebook.h
+
