@@ -29,12 +29,18 @@ int main()
             }
             else
             {
-                re = i + 1;
                 ind = 0;
+                i = re++;
             }
-            if (i == len - 1 || re > len)
+            if (i == len - 1 || re >= len)
             {
-                if (ind != 0) re = len;
+                if (ind != 0)
+                {
+                    ind = 0;
+                    i = re++;
+                    if (i == len - 1) {re = len; break;}
+                    continue;
+                }
                 break;
             }
         }
