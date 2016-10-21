@@ -11,7 +11,6 @@ char ord[50];
 int x, y;
 bool getboard()
 {
-    memset(board, 0, sizeof(board));
     char in[8];
     for (int i = 0; i < 5; i++)
     {
@@ -20,7 +19,11 @@ bool getboard()
         for (int j = 0; j < 5; j++)
         {
             board[i][j] = in[j];
-            if (in[j] == ' ') {x = i; y = j;}
+            if (in[j] == ' ' || in[j] == '\0')
+            {
+                x = i;
+                y = j;
+            }
         }
     }
     return 1;
@@ -42,22 +45,38 @@ bool mov(char in)
 {
     if (in == 'A')
     {
-        if (y - 1 >= 0) {swap(board[x][y], board[x][y - 1]); y--;}
+        if (x - 1 >= 0)
+        {
+            swap(board[x][y], board[x - 1][y]);
+            x--;
+        }
         else return 0;
     }
     if (in == 'B')
     {
-        if (y + 1 < 5) {swap(board[x][y], board[x][y + 1]); y++;}
+        if (x + 1 < 5)
+        {
+            swap(board[x][y], board[x + 1][y]);
+            x++;
+        }
         else return 0;
     }
     if (in == 'L')
     {
-        if (x - 1 >= 0) {swap(board[x][y], board[x - 1][y]); x++;}
+        if (y - 1 >= 0)
+        {
+            swap(board[x][y], board[x][y - 1]);
+            y--;
+        }
         else return 0;
     }
     if (in == 'R')
     {
-        if (x + 1 < 5) {swap(board[x][y], board[x - 1][y]); x++;}
+        if (y + 1 < 5)
+        {
+            swap(board[x][y], board[x][y + 1]);
+            y++;
+        }
         else return 0;
     }
     return 1;
@@ -66,20 +85,31 @@ bool mov(char in)
 int main()
 {
     int con = 1;
+    bool f = 0;
     while (getboard())
     {
-        printboard();
-        scanf("%s", ord);
-        int len = strlen(ord);
+        if (f) puts("");
+        f = 1;
         bool flag = 0;
-        for (int i = 0; i < len; i++)
+        while (1)
         {
-            if (ord[i] != '0')
+            scanf("%s", ord);
+            int len = strlen(ord);
+            for (int i = 0; i < len; i++)
             {
-                if (!mov(ord[i])) {flag = 1; break;}
+                if (ord[i] != '0')
+                {
+                    if (!mov(ord[i]))
+                    {
+                        flag = 1;
+                        break;
+                    }
+                }
+                else break;
             }
-            else break;
+            if (ord[len - 1] == '0') break;
         }
+        getchar();
         printf("Puzzle #%d:\n", con++);
         if (flag) puts("This puzzle has no final configuration.");
         else printboard();
