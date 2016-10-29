@@ -2,41 +2,41 @@
 //UVa1587
 
 #include <cstdio>
+#include <cstring>
 #include <algorithm>
 using namespace std;
-int d[3];
-int findd(int in)
-{
-    for (int i = 0; i < 3; i++)
-    {
-        if (d[i] == in) return i;
-        if (i == 2 && d[2] == -1) {d[2] = in; return 2;}
-    }
-    return -1;
-}
+char t1[30], t2[30];
+int con[3];
+int ind;
+char d[3][60];
 int main()
 {
-    int ab, bc, ac, t1, t2, t1s, t2s;
-    while (scanf("%d%d", &d[0], &d[1]) != EOF)
+    while (scanf("%s%s", t1, t2) != EOF)
     {
-        d[2] = -1;
-        ab = 1;
-        bc = ac = 0;
-        bool f = 1;
+        if (t1 > t2) swap(t1, t2);
+        ind = con[0] = 1;
+        con[1] = con[2] = 0;
+        strcpy(d[0], strcat(t1, t2));
         for (int i = 0; i < 5; i++)
         {
-            scanf("%d%d", &t1, &t2);
-            t1s = findd(t1);
-            t2s = findd(t2);
-            if (t1s == -1 || t2s == -1) {f = 0; continue;}
-            if (t1s > t2s) swap(t1s, t2s);
-            int s = t1s * 10 + t2s;
-            if (s == 1) ab++;
-            else if (s == 2) ac++;
-            else if (s == 12) bc++;
-            else f = 0;
+            scanf("%s%s", t1, t2);
+            if (t1 > t2) swap(t1, t2);
+            char tmp[60];
+            strcpy(tmp, strcat(t1, t2));
+            for (int j = 0; j < ind; j++)
+            {
+                if (con[j] != 2 && strcmp(tmp, d[j]))
+                {
+                    con[j]++;
+                    break;
+                }
+                if (j == ind - 1 && ind != 3)
+                {
+                    strcmp(d[ind++], tmp);
+                }
+            }
         }
-        if (f && ab == 2 && bc == 2 && ac == 2) puts("POSSIBLE");
+        if (con[0] == 2 && con[1] == 2 && con[2] == 2) puts("POSSIBLE");
         else puts("IMPOSSIBLE");
     }
 }
