@@ -34,9 +34,7 @@ int main()
             default:
                 break;
             }
-            if (x < 0) x = -x;
-            if (x > 40000) x %= 40000;
-            if (x > 20000) x = 40000 - x;
+            if (x < 0 || x > 20000) f = 0;
         }
         if (x != 0) f = 0;
         if (f) puts("YES");

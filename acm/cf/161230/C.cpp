@@ -16,8 +16,8 @@ int main()
         for (int i = 0; i < n; i++)
         {
             scanf("%d%d", &c, &d);
-            if (d == 1 && cur < max2) f = 1;
-            if (d == 2 && cur > min1) f = 1;
+            if (d == 1 && cur <= max2) f = 1;
+            if (d == 2 && cur >= min1) f = 1;
             if (d == 2 && cur > max2) max2 = cur;
             if (d == 1 && cur < min1) min1 = cur;
             if (f) continue;
