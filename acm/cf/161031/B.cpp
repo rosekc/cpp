@@ -37,9 +37,11 @@ int main()
         maxn *= 2;
         if (f1 && f2)
         {
-            if (abs(sum) < abs(sum + minn) || abs(sum) < abs(sum - maxn))
+            //printf("%d %d %d\n", abs(sum), abs(sum - minn), abs(sum - maxn));
+            //printf("%d %d\n", mx, mn);
+            if (abs(sum) < abs(sum - minn) || abs(sum) < abs(sum - maxn))
             {
-                int tmp = abs(sum + minn) - abs(sum - maxn);
+                int tmp = abs(sum - minn) - abs(sum - maxn);
                 if (tmp > 0) ans = mn;
                 else if (tmp < 0) ans = mx;
                 else ans = mx;

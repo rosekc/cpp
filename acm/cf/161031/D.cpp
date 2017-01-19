@@ -1,91 +1,66 @@
-//2016-10-31-23.34
-//
+//2017-01-19-21.06
+//D
 
 #include <cstdio>
 #include <algorithm>
 using namespace std;
-int ind, maxr;
-struct stone
+struct Stone
 {
-    int dd[3];
-    stone() {}
-    stone(int a, int b, int c)
+    long long a, b, c;
+    int pos;
+    bool operator < (const Stone &s)const
     {
-        dd[0] = a;
-        dd[1] = b;
-        dd[2] = c;
-    }
-    int findm()
-    {
-        return min(dd[0], min(dd[1], dd[2]));
+        if (c == s.c)
+        {
+            if (b == s.b)
+            {
+                return a > s.a;
+            }
+            return b < s.b;
+        }
+        return c < s.c;
     }
 };
-stone d[100015];
-bool check(int a1, int b1, int a2, int b2)
+Stone d[100000 + 20];
+Stone getd()
 {
-    return (a1 == a2 && b1 == b2);
+    long long a, b, c;
+    scanf("%lld%lld%lld", &a, &b, &c);
+    if (a > b) swap(a, b);
+    if (a > c) swap(a, c);
+    if (b > c) swap(b, c);
+    return {a, b, c};
 }
-int finds(stone s1, stone s2)
+int trycom(int i, int j)
 {
-    int *d1 = s1.dd;
-    int *d2 = s2.dd;
-    int maxrr = 0;
-    for (int i = 0; i < 2; i++)
+    if (d[i].b == d[j].b && d[i].c == d[j].c)
     {
-        for (int j = i + 1; j < 3; j++)
-        {
-            for (int k = 0; k < 2; k++)
-            {
-                for (int l = k + 1; l < 3; l++)
-                {
-                    if (check(d1[i], d1[j], d2[k], d2[l]))
-                    {
-                        stone s = stone(d1[i], d1[j], d1[3 - i - j] + d2[3 - k - l]);
-                        if (s.findm() > maxrr) maxrr = s.findm();
-                    }
-                }
-            }
-        }
+        return min(d[i].a + d[j].a, min(d[i].b, d[i].c));
     }
-    return maxrr;
+    return -1;
 }
 
 int main()
 {
-    int n;
-    while (scanf("%d", &n) != EOF)
+    int n, ans1, ans2 = -1;;
+    long long re = 0;
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++)
     {
-        ind = n;
-        maxr = 0;
-        int ans1, ans2 = -1;
-        for (int i = 1; i <= n; i++)
-        {
-            int a, b, c;
-            scanf("%d%d%d", &a, &b, &c);
-            d[i] = stone(a, b, c);
-            if (maxr < d[i].findm())
-            {
-                maxr = d[i].findm();
-                ans1 = i;
-            }
-        }
-        for (int i = 1; i <= n - 1; i++)
-        {
-            for (int j = i + 1; j <= n; j++)
-            {
-                int t = finds(d[i], d[j]);
-                if (t > maxr)
-                {
-                    maxr = t;
-                    ans1 = i;
-                    ans2 = j;
-                }
-            }
-        }
-        if (ans2 == -1)
-        {
-            printf("1\n%d\n", ans1);
-        }
-        else printf("2\n%d %d\n", ans1, ans2);
+        d[i] = getd();
+        d[i].pos = i;
+        if (re < d[i].a) re = d[i].a, ans1 = i;
     }
+    sort(d, d + n);
+    for (int i = 0; i < n; i++)
+    {
+        int t = trycom(i, i + 1);
+        if (re < t)
+        {
+            re = t;
+            ans1 = d[i].pos, ans2 = d[i + 1].pos;
+        }
+    }
+    if (ans2 == -1) printf("1\n%d\n", ans1 + 1);
+    else printf("2\n%d %d\n", ans1 + 1, ans2 + 1);
 }
