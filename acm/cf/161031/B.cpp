@@ -1,5 +1,5 @@
 //2016-10-31-22.30
-//
+//B
 
 #include <cstdio>
 #include <cmath>

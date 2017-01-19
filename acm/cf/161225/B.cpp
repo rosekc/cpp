@@ -4,59 +4,56 @@
 #include <cstdio>
 #include <string>
 #include <iostream>
-#include <map>
-#include <set>
+#include <cstring>
 using namespace std;
-map<char, char> m;
-set<char> s;
+char dic[30];
 int main()
 {
     string s1, s2;
     while (cin >> s1 >> s2)
     {
-        bool f = 0;
-        m.clear();
-        s.clear();
+        memset(dic, 0, sizeof(dic));
+        bool f = 1;
         for (int i = 0; i < s1.length(); i++)
         {
-            if (m.find(s1[i]) != m.end())
+            if (!f) continue;
+            if (s1[i] == s2[i])
             {
-                if (m[s1[i]] != s2[i])
+                if (dic[s1[i] - 'a'] == 0) dic[s1[i] - 'a'] = s1[i];
+                else if (dic[s1[i] - 'a'] != s1[i])
                 {
                     puts("-1");
-                    f = 1;
-                    break;
+                    f = 0;
                 }
             }
             else
             {
-                if (m.find(s2[i]) != m.end())
+                if (dic[s1[i] - 'a'] == 0 && dic[s2[i] - 'a'] == 0)
                 {
-                    if (m[s2[i]] != s1[i])
-                    {
-                        puts("-1");
-                        f = 1;
-                        break;
-                    }
+                    dic[s1[i] - 'a'] = s2[i];
+                    dic[s2[i] - 'a'] = s1[i];
                 }
-                else
+                else if (dic[s1[i] - 'a'] != s2[i] && dic[s2[i] - 'a'] != s1[i])
                 {
-                    if (s.count(s2[i]) != 0)
-                    {
-                        puts("-1");
-                        f = 1;
-                        break;
-                    }
-                    if (s1[i] != s2[i])  {m[s1[i]] = s2[i]; s.insert(s2[i]);}
+                    puts("-1");
+                    f = 0;
                 }
             }
         }
-        if (f) continue;
-        map<char, char>::iterator it;
-        printf("%d\n", m.size());
-        for (it = m.begin(); it != m.end(); it++)
+        if (!f) continue;
+        int con = 0;
+        for (int i = 0; i < 26; i++)
         {
-            printf("%c %c\n", it->first, it->second);
+            if (dic[i] != 0 && dic[i] != (i + 'a')) con++;
+        }
+        printf("%d\n", con / 2);
+        for (int i = 0; i < 26; i++)
+        {
+            if (dic[i] != (i + 'a') && dic[i] != 0)
+            {
+                printf("%c %c\n", (i + 'a'), dic[i]);
+                dic[dic[i] - 'a'] = 0;
+            }
         }
     }
 }
