@@ -1,46 +1,41 @@
 //2016-10-29-19.14
 //Bestcoder 89 1002
 
-#include <cstdio>
+#include <bits/stdc++.h>
 using namespace std;
-
+int d[1000000 + 100];
+int x, k, t;
+deque<pair<int, int> > q;
+int getd(int i)
+{
+    if (d[i] != -1) return d[i];
+    if (i == 1) return d[i] = 0;
+    while (!q.empty() && q.front().first < i - t) q.pop_front();
+    while (!q.empty() && q.back().second >= d[i - 1]) q.pop_back();
+    q.push_back({i - 1, d[i - 1]});
+    int minj = q.front().second;
+    if (i % k == 0 && k != 1)
+    {
+        return d[i] = min(minj, d[i / k]) + 1;
+    }
+    else
+    {
+        return d[i] = minj + 1;
+    }
+}
 int main()
 {
     int c;
     scanf("%d", &c);
     while (c--)
     {
-        int x, k, t, con = 0;
         scanf("%d%d%d", &x, &k, &t);
-        while (1)
+        memset(d, -1, sizeof d);
+        while (!q.empty()) q.clear();
+        for (int i = 1; i <= x; i++)
         {
-            if (x <= 1) break;
-            if (x % k == 0)
-            {
-                int t1 = x / k, t2 = x - t;
-                if (t1 < t2)
-                {
-                    x = t1;
-                }
-                else
-                {
-                    x = t2;
-                }
-            }
-            else
-            {
-                int t1 = x - t;
-                bool f = 1;
-                if (t1 <= 1) {x = 1; goto a;}
-                for (int i = x - 1; i >= t1; i--)
-                {
-                    if (i % k == 0) {f = 0; x = i;}
-                }
-                if (f) x = t1;
-            }
-            a:
-            con++;
+            getd(i);
         }
-        printf("%d\n", con);
+        printf("%d\n", d[x]);
     }
 }
