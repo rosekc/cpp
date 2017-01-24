@@ -1,42 +1,39 @@
-//2016-10-27-22.33
-//UVa1587
+//2017-01-24-22.54
+//Uva 1587
 
-#include <cstdio>
-#include <cstring>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
-char t1[30], t2[30];
-int con[3];
-int ind;
-char d[3][60];
+pair<int, int> d[6];
+
+
 int main()
 {
-    while (scanf("%s%s", t1, t2) != EOF)
+    while (scanf("%d%d", &d[0].first, &d[0].second) != EOF)
     {
-        if (t1 > t2) swap(t1, t2);
-        ind = con[0] = 1;
-        con[1] = con[2] = 0;
-        strcpy(d[0], strcat(t1, t2));
-        for (int i = 0; i < 5; i++)
+        if (d[0].first > d[0].second) swap(d[0].first, d[0].second);
+        for (int i = 1; i <= 5; i++)
         {
-            scanf("%s%s", t1, t2);
-            if (t1 > t2) swap(t1, t2);
-            char tmp[60];
-            strcpy(tmp, strcat(t1, t2));
-            for (int j = 0; j < ind; j++)
+            scanf("%d%d", &d[i].first, &d[i].second);
+            if (d[i].first > d[i].second) swap(d[i].first, d[i].second);
+        }
+        sort(d, d + 6);
+        bool f = 0;
+        if (d[0] == d[1] && d[2] == d[3] && d[4] == d[5])
+        {
+            if (d[0].first == d[2].first)
             {
-                if (con[j] != 2 && strcmp(tmp, d[j]))
-                {
-                    con[j]++;
-                    break;
-                }
-                if (j == ind - 1 && ind != 3)
-                {
-                    strcmp(d[ind++], tmp);
-                }
+                pair<int, int> t = {d[0].second, d[2].second};
+                if (t.first > t.second) swap(t.first, t.second);
+                if (t == d[4]) f = 1;
+            }
+            else if (d[4].first == d[0].first)
+            {
+                pair<int, int> t = {d[0].second, d[4].second};
+                if (t.first > t.second) swap(t.first, t.second);
+                if (t == d[2]) f = 1;
             }
         }
-        if (con[0] == 2 && con[1] == 2 && con[2] == 2) puts("POSSIBLE");
+        if (f) puts("POSSIBLE");
         else puts("IMPOSSIBLE");
     }
 }
