@@ -19,7 +19,7 @@ int main()
     {
         scanf("%s", d[i]);
     }
-    memset(mn, 0x3f, sizeof mn);
+    memset(mn, 0x0f, sizeof mn);
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < m; j++)
@@ -42,6 +42,7 @@ int main()
                 a = min(a, mn[i][2] + mn[j][0] + mn[k][1]);
                 a = min(a, mn[i][2] + mn[j][1] + mn[k][0]);
                 re = min(re, a);
+                //printf("  %d\n", re);
             }
 
     printf("%d\n", re);
